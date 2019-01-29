@@ -10,18 +10,21 @@ import java.net.URL;
 public class Draw extends JComponent{
 
 	private BufferedImage image;
+	private BufferedImage image2;
 	private BufferedImage backgroundImage;
-	private URL resource = getClass().getResource("run0.png");
+	private URL resource = getClass().getResource("idle.png");
+	private URL resource2 = getClass().getResource("imp0.png");
 
 	public int x = 30;
-	public int y = 340;
+	public int y = 307;
 
 	public int state= 0;
 
 	public Draw(){
 		try{
 			image = ImageIO.read(resource);
-			backgroundImage = ImageIO.read(getClass().getResource("background.png"));
+			image2 = ImageIO.read(resource2);
+			backgroundImage = ImageIO.read(getClass().getResource("bg.jpg"));
 		}
 		catch(IOException e){
 			e.printStackTrace();
@@ -31,24 +34,32 @@ public class Draw extends JComponent{
 	public void reloadImage(){
 		state++;
 		if( state == 0){
-			resource = getClass().getResource("run0.png");
+			resource = getClass().getResource("takbo0.png");
 		}
 		else if (state == 1){
-			resource = getClass().getResource("run1.png");
+			resource = getClass().getResource("takbo0.png");
 		}
 		else if (state == 2){
-			resource = getClass().getResource("run2.png");
+			resource = getClass().getResource("takbo1.png");
 		}
 		else if (state == 3){
-			resource = getClass().getResource("run3.png");
+			resource = getClass().getResource("takbo2.png");
 		}
 		else if (state == 4){
-			resource = getClass().getResource("run4.png");
+			resource = getClass().getResource("takbo3.png");
 		}
 		else if (state == 5){
-			resource = getClass().getResource("run5.png");
+			resource = getClass().getResource("takbo4.png");
+		}
+		else if (state == 6){
+			resource = getClass().getResource("takbo5.png");
+		}
+		else if (state == 7){
+			resource = getClass().getResource("takbo6.png");
+		}
+		else if (state == 8){
+			resource = getClass().getResource("takbo7.png");
 			state = 0;
-
 		}
 		try{
 			image = ImageIO.read(resource);
@@ -63,13 +74,13 @@ public class Draw extends JComponent{
 	public void attackAnimation(){
 		Thread thread1 = new Thread(new Runnable(){
 			public void run(){
-				for(int ctr = 0; ctr < 5; ctr++){
+				for(int ctr = 0; ctr < 6; ctr++){
 					try {
-						if(ctr==4){
-							resource = getClass().getResource("run0.png");
+						if(ctr==5){
+							resource = getClass().getResource("idle.png");
 						}
 						else{
-							resource = getClass().getResource("attack"+ctr+".png");
+							resource = getClass().getResource("slash"+ctr+".png");
 						}
 						
 						try{
@@ -89,16 +100,16 @@ public class Draw extends JComponent{
 		thread1.start();
 	}
 
-	public void crouchAnimation(){
+	public void hideAnimation(){
 		Thread thread2 = new Thread(new Runnable(){
 			public void run(){
-				for(int ctr = 0; ctr < 5; ctr++){
+				for(int ctr = 0; ctr < 8; ctr++){
 					try {
-						if(ctr==4){
-							resource = getClass().getResource("run0.png");
+						if(ctr==7){
+							resource = getClass().getResource("hide7.png");
 						}
 						else{
-							resource = getClass().getResource("crouch"+ctr+".png");
+							resource = getClass().getResource("hide"+ctr+".png");
 						}
 						
 						try{
@@ -121,43 +132,13 @@ public class Draw extends JComponent{
 	public void jumpAnimation(){
 		Thread thread3 = new Thread(new Runnable(){
 			public void run(){
-				for(int ctr = 0; ctr < 5; ctr++){
+				for(int ctr = 0; ctr < 7; ctr++){
 					try {
-						if(ctr==4){
-							resource = getClass().getResource("run0.png");
+						if(ctr==6){
+							resource = getClass().getResource("idle.png");
 						}
 						else{
-							resource = getClass().getResource("jump"+ctr+".png");
-						}
-						
-						try{
-							image = ImageIO.read(resource);
-						}
-						catch(IOException e){
-							e.printStackTrace();
-						}
-				        repaint();
-				        Thread.sleep(200);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		});
-		thread3.start();
-	}
-
-
-	public void somerAnimation(){
-		Thread thread4 = new Thread(new Runnable(){
-			public void run(){
-				for(int ctr = 0; ctr < 5; ctr++){
-					try {
-						if(ctr==4){
-							resource = getClass().getResource("run0.png");
-						}
-						else{
-							resource = getClass().getResource("smrslt"+ctr+".png");
+							resource = getClass().getResource("j"+ctr+".png");
 						}
 						
 						try{
@@ -174,8 +155,10 @@ public class Draw extends JComponent{
 				}
 			}
 		});
-		thread4.start();
+		thread3.start();
 	}
+
+	
 
 	public void paintComponent(Graphics g){
 	super.paintComponent(g);
@@ -183,6 +166,7 @@ public class Draw extends JComponent{
 	g.setColor(Color.BLUE);
 	g.drawImage(backgroundImage, 0, 0, this);
 	g.drawImage(image, x,y, this);
+	g.drawImage(image2, 600,340, this);
 	}
 
 	public void moveLeft(){
@@ -204,8 +188,8 @@ public class Draw extends JComponent{
 			repaint();
 		}
 
-	public void crouch(){
-		crouchAnimation();
+	public void hide(){
+		hideAnimation();
 		}
 
 	public void attack(){
@@ -216,9 +200,6 @@ public class Draw extends JComponent{
 		jumpAnimation();
 	}
 
-	public void somersault(){
-		somerAnimation();
-	}
 
 }
 
