@@ -217,22 +217,26 @@ public class Draw extends JComponent{
 				if(yChecker > monsters[x].yPos){
 					if(yChecker-monsters[x].yPos < monsters[x].height){
 						collideY = true;
+						System.out.println("collideY");
 					}
 				}
 				else{
-					if(monsters[x].yPos - yChecker < monsters[x].height){
+					if(monsters[x].yPos - (yChecker+height) < monsters[x].height){
 						collideY = true;
+						System.out.println("collideY");
 					}
 				}
 
 				if(xChecker > monsters[x].xPos){
-					if(xChecker-monsters[x].xPos < monsters[x].width){
+					if((xChecker-width)-monsters[x].xPos < monsters[x].width){
 						collideX = true;
+						System.out.println("collideX");
 					}
 				}
 				else{
-					if(monsters[x].xPos - xChecker < 5){
+					if(monsters[x].xPos-xChecker < monsters[x].width){
 						collideX = true;
+						System.out.println("collideX");
 					}
 				}
 			}
@@ -243,7 +247,7 @@ public class Draw extends JComponent{
 			}
 		}
 	}
-
+	
 	public void paintComponent(Graphics g){
 	super.paintComponent(g);
 
