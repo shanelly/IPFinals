@@ -10,8 +10,10 @@ import java.awt.Font;
 public class Draw extends JComponent{
 
 	private BufferedImage image;
+	private BufferedImage avi;
 	private BufferedImage backgroundImage;
 	private URL resource = getClass().getResource("idle.png");
+	private URL resource2 = getClass().getResource("avi.png");
 	private Font font;
 	
 
@@ -30,6 +32,7 @@ public class Draw extends JComponent{
 		
 		try{
 			image = ImageIO.read(resource);
+			avi = ImageIO.read(resource2);
 			backgroundImage = ImageIO.read(getClass().getResource("bg.jpg"));
 			font = new Font("Comic Sans MS", Font.PLAIN, 12);
 		}
@@ -257,10 +260,15 @@ public class Draw extends JComponent{
 	g.setColor(Color.BLACK);
 	g.drawImage(backgroundImage, 0, 0, this);
 	g.drawImage(image, x,y, this);
+
 	g.setFont(font);
-	g.drawString("Health:",10,20);
-	g.setColor(Color.YELLOW);
-	g.fillRect(5,30, 150, 10);
+	g.drawImage(avi, 10,20, this);
+	g.drawString("Status",80,30);
+	g.setColor(Color.RED);
+	g.fillRect(80,35, 150, 20);
+	g.setColor(Color.BLUE);
+	g.fillRect(80,60, 100, 10);
+
 	for(int c = 0; c < monsters.length; c++){
 			if(monsters[c]!=null){
 				g.drawImage(monsters[c].image, monsters[c].xPos, monsters[c].yPos, this);
