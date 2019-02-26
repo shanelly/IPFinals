@@ -5,12 +5,14 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.net.URL;
+import java.awt.Font;
 
 public class Draw extends JComponent{
 
 	private BufferedImage image;
 	private BufferedImage backgroundImage;
 	private URL resource = getClass().getResource("idle.png");
+	private Font font;
 	
 
 	public int x = 30;
@@ -29,6 +31,7 @@ public class Draw extends JComponent{
 		try{
 			image = ImageIO.read(resource);
 			backgroundImage = ImageIO.read(getClass().getResource("bg.jpg"));
+			font = new Font("Comic Sans MS", Font.PLAIN, 12);
 		}
 		catch(IOException e){
 			e.printStackTrace();
@@ -251,9 +254,13 @@ public class Draw extends JComponent{
 	public void paintComponent(Graphics g){
 	super.paintComponent(g);
 
-	g.setColor(Color.BLUE);
+	g.setColor(Color.BLACK);
 	g.drawImage(backgroundImage, 0, 0, this);
 	g.drawImage(image, x,y, this);
+	g.setFont(font);
+	g.drawString("Health:",10,20);
+	g.setColor(Color.YELLOW);
+	g.fillRect(5,30, 150, 10);
 	for(int c = 0; c < monsters.length; c++){
 			if(monsters[c]!=null){
 				g.drawImage(monsters[c].image, monsters[c].xPos, monsters[c].yPos, this);
