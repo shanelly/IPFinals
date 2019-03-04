@@ -2,6 +2,9 @@ import javax.swing.JFrame;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 import java.awt.*;
+import java.applet.Applet;
+import java.applet.AudioClip;
+import java.net.URL;
 
 
 
@@ -43,7 +46,7 @@ public class MyFrame extends JFrame implements KeyListener{
 	}
 
 
-	public static void main(String[] args){
+	public static void main(String[] args)throws Exception{
 		MyFrame gameFrame= new MyFrame();
 		gameFrame.setBackground(Color.BLACK);
 		gameFrame.setSize(800,560);
@@ -51,6 +54,15 @@ public class MyFrame extends JFrame implements KeyListener{
 		gameFrame.setVisible(true);
 		gameFrame.getContentPane().add(drawing);
 		gameFrame.addKeyListener(gameFrame);
+
+		URL url = MyFrame.class.getResource("music.wav");
+		AudioClip clip = Applet.newAudioClip(url);
+		AudioClip clip2 = Applet.newAudioClip(url);
+		clip.play();
+		Thread.sleep(1000);
+		clip2.loop();
+		Thread.sleep(20000);
+		clip2.stop();
 
 	}
 }
