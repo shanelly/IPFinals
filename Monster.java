@@ -5,6 +5,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 import javax.swing.JComponent;
+import java.awt.Rectangle;
 
 public class Monster{
 	
@@ -30,6 +31,7 @@ public class Monster{
 
 		animate(comp);
 	}
+
 
 	public Monster(int xPass, int yPass, Draw comp){
 		xPos = xPass;
@@ -100,7 +102,7 @@ public class Monster{
 		if(alive){
 			Thread monThread = new Thread(new Runnable(){
 				public void run(){
-					for(int ctr = 0; ctr < 5; ctr++){
+					for(int ctr = 0; ctr < 4; ctr++){
 						try {					
 							resource = getClass().getResource("slime-die-"+ctr+".png");
 							

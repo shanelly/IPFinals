@@ -6,6 +6,8 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.awt.Font;
+import java.awt.Rectangle;
+import java.util.*;
 
 public class Draw extends JComponent{
 
@@ -15,17 +17,20 @@ public class Draw extends JComponent{
 	private URL resource = getClass().getResource("idle.png");
 	private URL resource2 = getClass().getResource("avi.png");
 	private Font font;
+
 	
 
 	public int x = 30;
 	public int y = 305;
+	public int health = 200;
 	public int height = 0;
 	public int width = 0;
 
 	public int state= 0;
 
 	public int enemyCount;
-	Monster[] monsters = new Monster[5];
+
+	Monster[] monsters = new Monster[20];
 
 	public Draw(){
 		spawnEnemy();
@@ -209,7 +214,7 @@ public class Draw extends JComponent{
 
 	
 
-	public void checkCollision(){
+public void checkCollision(){
 		int xChecker = x + width;
 		int yChecker = y;
 
@@ -223,37 +228,38 @@ public class Draw extends JComponent{
 				if(yChecker > monsters[x].yPos){
 					if(yChecker-monsters[x].yPos < monsters[x].height){
 						collideY = true;
-						System.out.println("collideY");
 					}
 				}
 				else{
 					if(monsters[x].yPos - (yChecker+height) < monsters[x].height){
 						collideY = true;
-						System.out.println("collideY");
 					}
 				}
 
 				if(xChecker > monsters[x].xPos){
 					if((xChecker-width)-monsters[x].xPos < monsters[x].width){
 						collideX = true;
-						System.out.println("collideX");
 					}
 				}
 				else{
 					if(monsters[x].xPos-xChecker < monsters[x].width){
 						collideX = true;
-						System.out.println("collideX");
 					}
 				}
 			}
 
 			if(collideX && collideY){
-				System.out.println("collision!");
 				monsters[x].contact = true;
+				health = health - 2;
+						
 			}
+
 		}
 	}
 	
+
+
+
 	public void paintComponent(Graphics g){
 	super.paintComponent(g);
 
@@ -265,9 +271,7 @@ public class Draw extends JComponent{
 	g.drawImage(avi, 10,20, this);
 	g.drawString("Status",80,30);
 	g.setColor(Color.RED);
-	g.fillRect(80,35, 150, 20);
-	g.setColor(Color.BLUE);
-	g.fillRect(80,60, 100, 10);
+	g.fillRect(80,35, health, 20);
 
 	for(int c = 0; c < monsters.length; c++){
 			if(monsters[c]!=null){
