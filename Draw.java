@@ -25,6 +25,7 @@ public class Draw extends JComponent{
 	public int health = 200;
 	public int height = 0;
 	public int width = 0;
+	public boolean alive= true;
 
 	public int state= 0;
 
@@ -113,6 +114,9 @@ public class Draw extends JComponent{
 		catch(IOException e){
 			e.printStackTrace();
 		}
+		if(health<=0){
+			dieAnimation();		
+		}
 
 
 	}
@@ -154,33 +158,31 @@ public class Draw extends JComponent{
 		thread1.start();
 	}
 
-	public void hideAnimation(){
-		Thread thread2 = new Thread(new Runnable(){
-			public void run(){
-				for(int ctr = 0; ctr < 8; ctr++){
-					try {
-						if(ctr==7){
-							resource = getClass().getResource("hide7.png");
-						}
-						else{
+	public void dieAnimation(){
+		if(alive){
+			Thread thread2 = new Thread(new Runnable(){
+				public void run(){
+					for(int ctr = 0; ctr < 8; ctr++){
+						try {					
 							resource = getClass().getResource("hide"+ctr+".png");
-						}
-						
-						try{
-							image = ImageIO.read(resource);
-						}
-						catch(IOException e){
+							
+							try{
+								image = ImageIO.read(resource);
+							}
+							catch(IOException e){
+								e.printStackTrace();
+							}
+					       	repaint();
+					        Thread.sleep(100);
+						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
-				        repaint();
-				        Thread.sleep(100);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
 					}
 				}
-			}
-		});
-		thread2.start();
+			});
+			thread2.start();
+		}
+		alive = false;
 	}
 
 	public void jumpAnimation(){
@@ -304,8 +306,8 @@ public void checkCollision(){
 			checkCollision();
 		}
 
-	public void hide(){
-		hideAnimation();
+	public void die(){
+		dieAnimation();
 		}
 
 	public void attack(){
