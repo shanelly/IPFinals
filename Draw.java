@@ -79,13 +79,14 @@ public class Draw extends JComponent{
 					}
 					
 				}
+				
 			}
 		});
 		gameThread.start();
 	}
 
 	public void spawnEnemy(){
-		if(enemyCount < 10){
+		if(enemyCount < 20){
 			monsters[enemyCount] = new Monster(700,380, this);
 			enemyCount++;
 		}
@@ -279,7 +280,7 @@ public void checkCollision(){
 	super.paintComponent(g);
 
 	g.setColor(Color.BLACK);
-	g.drawImage(backgroundImage, 0, 0, this);
+	g.drawImage(backgroundImage, -x + getWidth() - getWidth(), 0, this);
 	g.drawImage(image, x,y, this);
 
 	g.setFont(font);
