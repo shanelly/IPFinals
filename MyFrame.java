@@ -5,6 +5,9 @@ import java.awt.*;
 import java.applet.Applet;
 import java.applet.AudioClip;
 import java.net.URL;
+import java.io.*;
+import java.net.URL;
+import javax.sound.sampled.*;
 
 
 
@@ -24,15 +27,25 @@ public class MyFrame extends JFrame implements KeyListener{
 		else if(e.getKeyCode()== KeyEvent.VK_UP){
 			drawing.jump();
 		}
-		else if(e.getKeyCode()== KeyEvent.VK_DOWN){
-			drawing.hide();
-		}
 		else if(e.getKeyCode() == KeyEvent.VK_SPACE){
-			drawing.attack();
-			System.out.println("attack");
+			 try {
+
+                        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("sword.wav").getAbsoluteFile());
+                        Clip clip = AudioSystem.getClip();
+                        clip.open(audioInputStream);
+                        clip.start();
+                    }catch(Exception x) { x.printStackTrace(); }
+                    drawing.attack();
 		}
-		else if(e.getKeyCode() == KeyEvent.VK_Z){
+		else if(e.getKeyCode() == KeyEvent.VK_S){
 			drawing.spawnEnemy();
+			try {
+
+                        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("slime.wav").getAbsoluteFile());
+                        Clip clip = AudioSystem.getClip();
+                        clip.open(audioInputStream);
+                        clip.start();
+                    }catch(Exception x) { x.printStackTrace(); }
 
 	}
 }
@@ -63,6 +76,5 @@ public class MyFrame extends JFrame implements KeyListener{
 		clip2.loop();
 		Thread.sleep(20000);
 		clip2.stop();
-
 	}
 }

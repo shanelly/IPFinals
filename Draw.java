@@ -8,6 +8,9 @@ import java.net.URL;
 import java.awt.Font;
 import java.awt.Rectangle;
 import java.util.*;
+import java.io.*;
+import java.net.URL;
+import javax.sound.sampled.*;
 
 public class Draw extends JComponent{
 
@@ -35,6 +38,14 @@ public class Draw extends JComponent{
 
 	public Draw(){
 		spawnEnemy();
+		try {
+
+                 AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("slime.wav").getAbsoluteFile());
+                  Clip clip = AudioSystem.getClip();
+                 clip.open(audioInputStream);
+                clip.start();
+
+             }catch(Exception x) { x.printStackTrace(); }
 		
 		try{
 			image = ImageIO.read(resource);
@@ -66,6 +77,7 @@ public class Draw extends JComponent{
 					} catch (InterruptedException e) {
 							e.printStackTrace();
 					}
+					
 				}
 			}
 		});
@@ -114,6 +126,7 @@ public class Draw extends JComponent{
 		catch(IOException e){
 			e.printStackTrace();
 		}
+
 		if(health<=0){
 			dieAnimation();		
 		}
