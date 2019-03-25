@@ -163,7 +163,7 @@ public class Draw extends JComponent{
 				for(int x=0; x<monsters.length; x++){
 					if(monsters[x]!=null){
 						if(monsters[x].contact){
-							monsters[x].life = monsters[x].life - 10;
+							monsters[x].life = monsters[x].life - 5;
 						}
 					}
 				}

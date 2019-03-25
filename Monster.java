@@ -13,7 +13,7 @@ public class Monster{
 	public int yPos = 300;
 	public int width = 0;
 	public int height = 0;
-	public int life = 20;
+	public int life = 25;
 	public boolean idle = true;
 	public boolean alive = true;
 	public boolean contact = false;
